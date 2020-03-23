@@ -5,9 +5,9 @@ export default function App() {
   const [ballY, setBallY] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    Animated.timing(ballY, {
-      toValue: 500,
-      duration: 1000,
+    Animated.spring(ballY, {
+      toValue: 300,
+      bounciness: 30,
     }).start();
   }, [ballY]);
 
