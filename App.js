@@ -5,9 +5,8 @@ export default function App() {
   const [ballY, setBallY] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    Animated.spring(ballY, {
-      toValue: 300,
-      bounciness: 30,
+    Animated.decay(ballY, {
+      velocity: 1,
     }).start();
   }, [ballY]);
 
