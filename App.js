@@ -3,50 +3,32 @@ import {SafeAreaView, StyleSheet, View, Animated} from 'react-native';
 
 export default function App() {
   const [ballY] = useState(new Animated.Value(0));
-  const [ballX] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(ballY, {
-          toValue: 200,
-          duration: 500,
-        }),
-
-        Animated.delay(200),
-
-        Animated.timing(ballX, {
-          toValue: 200,
-          duration: 500,
-        }),
-
-        Animated.delay(200),
-
-        Animated.timing(ballY, {
-          toValue: 0,
-          duration: 500,
-        }),
-
-        Animated.delay(200),
-
-        Animated.timing(ballX, {
-          toValue: 0,
-          duration: 500,
-        }),
-
-        Animated.delay(200),
-      ]),
-      {
-        iterations: 2,
-      },
-    ).start();
-  }, [ballY, ballX]);
+    Animated.sequence([
+      Animated.timing(ballY, {
+        toValue: 300,
+        duration: 1000,
+      }),
+    ]).start();
+  }, [ballY]);
 
   return (
     <>
       <SafeAreaView>
         <View style={styles.container}>
-          <Animated.View style={[styles.ball, {top: ballY, left: ballX}]} />
+          <Animated.View
+            style={[
+              styles.ball,
+              {
+                top: ballY,
+                opacity: ballY.interpolate({
+                  inputRange: [0, 300],
+                  outputRange: [1, 0],
+                }),
+              },
+            ]}
+          />
         </View>
       </SafeAreaView>
     </>
