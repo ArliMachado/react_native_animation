@@ -2,7 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Animated} from 'react-native';
 
 export default function App() {
-  const [ballY, setBallY] = useState(new Animated.Value(0));
+  const ball_Y = new Animated.Value(0);
+  const ball_x = Animated.divide(ball_Y, 2);
+
+  const [ballY] = useState(ball_Y);
+  const [ballX] = useState(ball_x);
 
   useEffect(() => {
     Animated.decay(ballY, {
@@ -14,7 +18,7 @@ export default function App() {
     <>
       <SafeAreaView>
         <View style={styles.container}>
-          <Animated.View style={[styles.ball, {top: ballY}]} />
+          <Animated.View style={[styles.ball, {top: ballY, left: ballX}]} />
         </View>
       </SafeAreaView>
     </>
