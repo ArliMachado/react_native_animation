@@ -2,17 +2,45 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Animated} from 'react-native';
 
 export default function App() {
-  const ball_Y = new Animated.Value(0);
-  const ball_x = Animated.divide(ball_Y, 2);
-
-  const [ballY] = useState(ball_Y);
-  const [ballX] = useState(ball_x);
+  const [ballY] = useState(new Animated.Value(0));
+  const [ballX] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    Animated.decay(ballY, {
-      velocity: 1,
-    }).start();
-  }, [ballY]);
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(ballY, {
+          toValue: 200,
+          duration: 500,
+        }),
+
+        Animated.delay(200),
+
+        Animated.timing(ballX, {
+          toValue: 200,
+          duration: 500,
+        }),
+
+        Animated.delay(200),
+
+        Animated.timing(ballY, {
+          toValue: 0,
+          duration: 500,
+        }),
+
+        Animated.delay(200),
+
+        Animated.timing(ballX, {
+          toValue: 0,
+          duration: 500,
+        }),
+
+        Animated.delay(200),
+      ]),
+      {
+        iterations: 2,
+      },
+    ).start();
+  }, [ballY, ballX]);
 
   return (
     <>
